@@ -1,7 +1,7 @@
 let inFlight = null;
 
 export async function saveToServer(payload) {
-  if (inFlight) return inFlight; // request deduplication
+  if (inFlight) return inFlight;
 
   inFlight = fetch("http://localhost:5000/save", {
     method: "POST",

@@ -7,19 +7,16 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// In-memory storage
 let fileStore = {
   fileId: "file-1",
   content: "",
   version: 1,
 };
 
-// Random failure (20%)
 function randomFail() {
   return Math.random() < 0.2;
 }
 
-// POST /save
 app.post("/save", (req, res) => {
   try {
     if (randomFail()) {
@@ -32,7 +29,6 @@ app.post("/save", (req, res) => {
       return res.status(400).json({ message: "Invalid payload" });
     }
 
-    // Version-based sync
     if (version !== fileStore.version) {
       return res.status(409).json({
         message: "Version conflict",
