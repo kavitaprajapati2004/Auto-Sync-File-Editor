@@ -1,16 +1,65 @@
-# React + Vite
+# Auto-Sync File Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This is a mini file editor with auto-save like Google Docs. It saves your file when you stop typing, every 30 seconds, or when you close the tab.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+* Debounced save: saves 3 seconds after typing stops
+* Interval save: saves every 30 seconds
+* Tab close save: saves before leaving the page
+* Save status: shows `Saved`, `Saving…`, or `Unsaved changes`
+* Optimizations: saves only if content changed and retries failed saves
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Backend API
 
-## Expanding the ESLint configuration
+* POST /save
+* Payload:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```json
+{
+  "fileId": "file-1",
+  "title": "My File",
+  "content": "File content",
+  "version": 2,
+  "timestamp": "2026-02-02T12:00:00Z"
+}
+```
+
+## How to Run
+
+1. Clone the repo:
+
+```bash
+git clone https://github.com/your-username/auto-sync-editor.git
+```
+
+2. Start backend:
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+3. Start frontend:
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+4. Open `http://localhost:3000` in browser
+
+## Sync Strategy
+
+* Version-based: saves only if content changed
+* Cancels old save if new changes happen
+
+## Bonus Ideas
+
+* Offline support with queued saves
+* Multi-tab sync
+* Live updates with WebSocket

@@ -52,6 +52,22 @@ app.post("/save", (req, res) => {
   }
 });
 
+app.get("/file/:fileId", (req, res) => {
+  const { fileId } = req.params;
+
+  if (fileId !== fileStore.fileId) {
+    return res.status(404).json({ message: "File not found" });
+  }
+
+  return res.json({
+    fileId: fileStore.fileId,
+    content: fileStore.content,
+    version: fileStore.version,
+    updatedAt: fileStore.updatedAt ?? null,
+  });
+});
+
+
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
 });
