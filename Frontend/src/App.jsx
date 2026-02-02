@@ -19,6 +19,24 @@ export default function App() {
     versionRef,
   });
 
+useEffect(() => {
+  async function loadFile() {
+    try {
+      const res = await fetch(
+        "https://auto-sync-file-editor-back.onrender.com/file/file-1"
+      );
+      const data = await res.json();
+
+      setContent(data.content || "");
+      versionRef.current = data.version || 1;
+    } catch (err) {
+      console.error("Failed to load file", err);
+    }
+  }
+
+  loadFile();
+}, []);
+
   useEffect(() => {
     const savedContent = localStorage.getItem("file-content");
     const savedTitle = localStorage.getItem("file-title");
