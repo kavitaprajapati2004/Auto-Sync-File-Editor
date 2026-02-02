@@ -1,4 +1,5 @@
 // saveService.js
+import { API_URL } from "../../config/env";
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -27,7 +28,7 @@ export async function saveToServer(payload, options = {}) {
 
   while (attempt <= maxRetries) {
     try {
-      const res = await fetch("http://localhost:5000/save", {
+      const res = await fetch(`${API_URL}/save`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

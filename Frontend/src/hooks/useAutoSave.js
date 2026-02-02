@@ -131,7 +131,7 @@ export default function useAutoSave({
       doSave({ force: true, reason: "interval" });
     }, 30000);
     return () => clearInterval(id);
-  }, []);
+  }, [fileId, versionRef, setStatus]);
 
   useEffect(() => {
     const handler = () => {

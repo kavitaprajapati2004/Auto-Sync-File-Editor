@@ -14,7 +14,8 @@ let fileStore = {
 };
 
 function randomFail() {
-  return Math.random() < 0.2;
+  // return Math.random() < 0.2;
+  return false;
 }
 
 app.post("/save", (req, res) => {
