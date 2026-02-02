@@ -19,7 +19,6 @@ export default function App() {
     versionRef,
   });
 
-  /* 🔹 Load title & content on first load */
   useEffect(() => {
     const savedContent = localStorage.getItem("file-content");
     const savedTitle = localStorage.getItem("file-title");

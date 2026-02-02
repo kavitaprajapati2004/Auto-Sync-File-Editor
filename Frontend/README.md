@@ -51,7 +51,7 @@ npm install
 npm start
 ```
 
-4. Open `http://localhost:3000` in browser
+4. Open `http://localhost:5175` in browser
 
 ## Sync Strategy
 
