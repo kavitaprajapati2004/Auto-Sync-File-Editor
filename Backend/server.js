@@ -70,5 +70,5 @@ app.get("/file/:fileId", (req, res) => {
 
 
 app.listen(PORT, () => {
-  console.log(`Backend running on http://localhost:${PORT}`);
+  console.log(`Backend running on https://auto-sync-file-editor-back.onrender.com:${PORT}`);
 });
