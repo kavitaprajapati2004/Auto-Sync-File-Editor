@@ -7,41 +7,38 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// In-memory store (resets on Render restart – expected)
 let fileStore = {
   fileId: "file-1",
   content: "",
   version: 1,
+  updatedAt: null,
 };
 
-function randomFail() {
-  // return Math.random() < 0.2;
-  return false;
-}
-
+// SAVE FILE
 app.post("/save", (req, res) => {
   try {
-    if (randomFail()) {
-      return res.status(500).json({ message: "Random server failure" });
-    }
-
     const { fileId, content, version, timestamp } = req.body;
 
     if (!fileId || content === undefined || version === undefined) {
       return res.status(400).json({ message: "Invalid payload" });
     }
 
+    // 🔥 FIX: auto-resolve version conflict
     if (version !== fileStore.version) {
-      return res.status(409).json({
-        message: "Version conflict",
-        serverVersion: fileStore.version,
+      fileStore.content = content;
+      fileStore.version += 1;
+      fileStore.updatedAt = timestamp;
+
+      return res.json({
+        message: "Saved after resolving conflict",
+        version: fileStore.version,
       });
     }
 
     fileStore.content = content;
     fileStore.version += 1;
     fileStore.updatedAt = timestamp;
-
-    console.log("Saved:", fileStore);
 
     return res.json({
       message: "Saved successfully",
@@ -53,6 +50,7 @@ app.post("/save", (req, res) => {
   }
 });
 
+// LOAD FILE (IMPORTANT)
 app.get("/file/:fileId", (req, res) => {
   const { fileId } = req.params;
 
@@ -64,11 +62,10 @@ app.get("/file/:fileId", (req, res) => {
     fileId: fileStore.fileId,
     content: fileStore.content,
     version: fileStore.version,
-    updatedAt: fileStore.updatedAt ?? null,
+    updatedAt: fileStore.updatedAt,
   });
 });
 
-
 app.listen(PORT, () => {
-  console.log(`Backend running on https://auto-sync-file-editor-back.onrender.com:${PORT}`);
+  console.log(`Backend running on port ${PORT}`);
 });
