@@ -159,3 +159,67 @@ body {
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 768px) {
+  .app-container {
+    width: 90%;
+    padding: 24px 20px 30px;
+  }
+
+  .app-container textarea {
+    height: 200px;
+  }
+
+  .download-btn {
+    width: 48px;
+    height: 48px;
+    bottom: 18px;
+    right: 18px;
+  }
+
+  #dwl-btn {
+    font-size: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .app-container {
+    width: 95%;            
+    padding: 18px 16px 24px; 
+    border-radius: 16px;
+  }
+
+  .app-container h2 {
+    font-size: 1.3rem;     
+    margin-bottom: 16px;
+  }
+
+  .app-container input,
+  .app-container textarea {
+    padding: 12px 14px;     
+    font-size: 0.95rem;    
+  }
+
+  .app-container textarea {
+    height: 160px;          
+  }
+
+  .status {
+    font-size: 0.8rem;       
+    padding: 6px 12px;      
+  }
+
+  .download-btn {
+    width: 42px;
+    height: 42px;
+    bottom: 12px;
+    right: 12px;
+    border-radius: 14px;
+  }
+
+  #dwl-btn {
+    font-size: 20px;
+  }
+}
+
+
+

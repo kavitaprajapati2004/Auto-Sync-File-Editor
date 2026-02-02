@@ -27,7 +27,7 @@ export async function saveToServer(payload, options = {}) {
 
   while (attempt <= maxRetries) {
     try {
-      const res = await fetch("http://localhost:5000/save", {
+      const res = await fetch("auto-sync-file-editor-i7b7.vercel.app", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
